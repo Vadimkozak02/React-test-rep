@@ -3,13 +3,20 @@ import styled from "styled-components";
 
 export const Tabs: React.FC = () => {
   const [activeId, setActiveId] = useState("1");
+  const items = [
+    { id: "1", title: "All", disabled: false },
+    { id: "2", title: "My Favorite", disabled: false },
+    { id: "3", title: "Popular", disabled: true },
+  ];
 
   return (
     <TabsWrapper>
-      {["1", "2", "3"].map((id) => (
+      {items.map(({ id, title, disabled }) => (
         <TabsItem
           key={id}
+          title={title}
           active={activeId === id}
+          disabled={disabled}
           setActive={() => setActiveId(id)}
         ></TabsItem>
       ))}
@@ -23,23 +30,24 @@ const TabsWrapper = styled.div`
 `;
 
 const TabsItem: React.FC<{
+  title: string;
   active: boolean;
+  disabled: boolean;
   setActive: () => void;
-}> = ({ active, setActive }) => {
+}> = ({ title, active, disabled, setActive }) => {
   return (
     <TabsBtn
       type="button"
+      disabled={disabled}
       onClick={() => setActive()}
-      style={{
-        borderBottom: active ? "2px solid grey" : "2px solid transparent",
-      }}
+      $active={active}
     >
-      All
+      {title}
     </TabsBtn>
   );
 };
 
-const TabsBtn = styled.button`
+const TabsBtn = styled.button<{ $active: boolean }>`
   all: unset;
   cursor: pointer;
   width: 100px;
@@ -48,73 +56,16 @@ const TabsBtn = styled.button`
   margin: 50px 25px 0 0;
   color: grey;
   font-weight: 600;
+  border-bottom: ${({ $active }) => {
+    return $active && "2px solid grey";
+  }};
 
   &:hover {
     color: blue;
   }
+
+  &:disabled {
+    color: #8080804b;
+    cursor: auto;
+  }
 `;
-
-// type Props = {
-//   variant: "primary" | "active" | "disabled";
-//   children: string;
-//   disabled?: string;
-//   onClick: () => void;
-// };
-
-// export const Tabs: React.FC<Props> = ({
-//   variant,
-//   children,
-//   disabled,
-//   onClick,
-// }) => {
-//   const [isActive, setIsActive] = useState(false);
-
-//   return (
-//     <TabsBtn
-//       type="button"
-//       $variant={isActive ? "active" : "primary"}
-//       onClick={() => setIsActive(!isActive)}
-//     >
-//       {children}
-//     </TabsBtn>
-//   );
-// };
-
-// const css = String.raw;
-
-// const TabsBtn = styled.button<{ $variant: "primary" | "active" | "disabled" }>`
-//   all: unset;
-//   cursor: pointer;
-//   width: 120px;
-//   height: 50px;
-//   background-color: lightgray;
-//   border-radius: 5px;
-//   margin: 25px 10px 0 0;
-//   text-align: center;
-//   font-size: 18px;
-
-//   ${({ $variant }) => {
-//     switch ($variant) {
-//       case "primary": {
-//         return css`
-//           color: grey;
-//         `;
-//       }
-//       case "active": {
-//         return css`
-//           color: blue;
-//         `;
-//       }
-//       case "disabled": {
-//         return css`
-//           cursor: none;
-//           opacity: 0.7;
-//           color: white;
-//         `;
-//       }
-//       default: {
-//         return css``;
-//       }
-//     }
-//   }}
-// `;
