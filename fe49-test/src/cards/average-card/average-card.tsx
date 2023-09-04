@@ -12,7 +12,7 @@ import MoreBtn from "../card-img/ellipsis.svg";
 type Props = {
   id?: React.ReactNode;
   image: React.ReactNode;
-  text: React.ReactNode;
+  text?: React.ReactNode;
   date: React.ReactNode;
   lesson_num?: React.ReactNode;
   title: React.ReactNode;
