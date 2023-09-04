@@ -27,6 +27,7 @@ export const Tabs: React.FC = () => {
 const TabsWrapper = styled.div`
   border-bottom: 1px solid;
   border-color: #8080803c;
+  margin-bottom: 50px;
 `;
 
 const TabsItem: React.FC<{
