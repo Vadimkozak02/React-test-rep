@@ -46,7 +46,9 @@ export const Menu: React.FC<Props> = ({ onClick }) => {
           placeholder={isOpened ? undefined : "Search..."}
           style={{
             backgroundColor: isOpened ? "#0000b4" : "#2d5394",
+            cursor: isOpened ? "not-allowed" : "auto",
           }}
+          readOnly={isOpened ? true : false}
         ></MenuSearch>
         <MenuSearchBtn type="button">
           <SearchImg src={search}></SearchImg>
@@ -112,13 +114,6 @@ const MenuSearch = styled.input`
 
   &::placeholder {
     color: white;
-  }
-`;
-
-const closeBtn = styled.input`
-  background-color: #0000b4;
-  &::placeholder {
-    display: none;
   }
 `;
 
